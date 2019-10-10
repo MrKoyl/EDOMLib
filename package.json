@@ -1,0 +1,23 @@
+{
+  "name": "edomlib",
+  "version": "1.0.0",
+  "description": "My library for easy access to DOM elements and work with them",
+  "main": "EDOMLib.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrKoyl/EDOMLib.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrKoyl/EDOMLib/issues"
+  },
+  "homepage": "https://github.com/MrKoyl/EDOMLib#readme",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
