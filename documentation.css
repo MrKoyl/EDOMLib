@@ -1,0 +1,30 @@
+body{
+    background-color: lightgray;
+}
+
+h1, h2{
+    text-align: center;
+}
+
+h2{
+    margin-top: 150px;
+}
+
+summary{
+    outline-style: none;
+    cursor: pointer;
+}
+
+body>details{
+    margin-top: 50px;
+    font-size: 2rem;
+}
+
+details details{
+    margin-left: 20px;
+    font-size: 1.5rem;
+}
+
+code{
+    white-space: pre-wrap;
+}

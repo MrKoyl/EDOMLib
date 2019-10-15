@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDOMLib Documentation</title>
+    <link rel="stylesheet" href="documentation.css">
+</head>
+<body>
+    <h1>EDOMLib Documentation</h1>
+    <details id="d1">
+        <summary>Basics</summary>
+        <details>
+            <summary>Getting DOM element</summary>
+            <code>
+_(selector, context);   // gets all elements by selector from context
+_('section');           // gets all section elements
+_('#id');               // gets element with id="id"
+_('.class');            // gets elements with class="class"
+_('p', _('.article'));  // gets all p elements from elements with class='article'
+            </code>
+        </details>
+        <details id="d2">
+            <summary id="template">Generating template</summary>
+            <p>
+                Template is a JSON that contains all HTML parameters and some special.<br>
+                To create a template you should write an object or array of objects.<br>
+                Every object should has key 'tag' where you choose HTML-tag of element. It has special value 'text' for text Node.<br>
+                'content'-key is an array of children or text string for 'text'-tag.<br>
+                All others keys are for HTML-attributes.
+            </p>
+            <code>
+Example of element:
+    {
+        'tag': 'div',
+        'id': 'wrapper',
+        'content' : [
+            {
+                'tag': 'a',
+                'href': '#'
+                'class': 'link',
+                'content': [
+                    {
+                        'tag': 'text',
+                        'content': 'Click me'
+                ]
+            },
+            {
+                'tag': 'img',
+                'src': 'url("some.png")',
+                'alt': 'Image'
+            }
+        ]
+    }
+            </code>
+        </details>
+    </details>
+    <details>
+        <summary>Class manipulating</summary>
+        <details>
+            <summary>addClass()</summary>
+            <code>
+EDOM.addClass(classNames);                       // classNames should be a string or array of strings
+EDOM.addClass('Class1 Class2 Class3');           // adds classes to element
+EDOM.addClass(['Class1', 'Class2', 'Class3']);   // adds classes to element
+            </code>
+        </details>
+        <details>
+            <summary>removeClass()</summary>
+            <code>
+EDOM.removeClass(classNames);                       // classNames should be a string or array of strings
+EDOM.removeClass('Class1 Class2 Class3');           // removes classes from element
+EDOM.removeClass(['Class1', 'Class2', 'Class3']);   // removes classes from element
+            </code>
+        </details>
+        <details>
+            <summary>toggleClass()</summary>
+            <code>
+EDOM.toggleClass(classNames);                       // classNames should be a string or array of strings
+EDOM.toggleClass('Class1 Class2 Class3');           // toggles classes of element
+EDOM.toggleClass(['Class1', 'Class2', 'Class3']);   // toggles classes of element
+            </code>
+        </details>
+        <details>
+            <summary>hasClass()</summary>
+            <code>
+EDOM.hasClass(className, every); // className should be a string, every - boolean (default: true)
+EDOM.hasClass('class');          // returns true if all elements has class='class'
+EDOM.hasClass('class', false;    // returns true if at least one element has class='class'
+            </code>
+        </details>
+    </details>
+    <details>
+        <summary>DOM-elements manipulating</summary>
+        <details>
+            <summary>add()</summary>
+            <code>
+EDOM.add(template);  // creates elements according to <a href="#template">template</a> and adds them to elements
+EDOM.add({
+    'tag': 'h1',
+    'content': [
+        {
+            'tag': 'text',
+            'content' : 'Heading'
+        }
+    ]})
+            </code>
+        </details>
+        <details>
+            <summary>clear()</summary>
+            <code>
+EDOM.clear();    // removes all children of elements
+            </code>
+        </details>
+    </details>
+    <details>
+        <summary>
+            Events
+        </summary>
+        <details>
+            <summary>event()</summary>
+            <code>
+EDOM.event(type, callback);                     // creates event listener according to type of event
+EDOM.event('click', () => {alert('click!')})
+            </code>
+        </details>
+    </details>
+</body>
+<script>
+    const openDetailsIfAnchorHidden = (evt) => {
+        const el = evt.target;
+        let details = document.querySelector(el.getAttribute("href"));
+        if (!!details.offsetHeight || details.getClientRects().length) return;
+        while (true) {
+            details = details.closest("details:not(#" + details.id +")");
+            if (details == null)
+                return;
+            details.setAttribute('open', '');
+        }
+    };
+
+
+    [...document.querySelectorAll("[href^='#']")].forEach(
+        el => el.addEventListener("click", openDetailsIfAnchorHidden )
+    );
+</script>
+</html>
