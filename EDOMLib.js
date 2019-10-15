@@ -32,36 +32,37 @@ function _(selector, context = document) {
 
         // Classes methods
         addClass(classNames){
-            if(classNames instanceof Array) classNames = classNames.join(" ");
+            if(typeof(classNames) === "string") classNames = classNames.trim().split(" ");
             this.elements.forEach((element) => {
-                element.classList.add(classNames.trim());
+                classNames.forEach((className) => {
+                    element.classList.add(className.trim());
+                });
             });
             return this;
         }
 
         hasClass(className, every = true){
             if(every){
-                for(let i = 0; i < this.elements.length; i++){
-                    if(!this.elements[i].classList.contains(className)) return false
-                }
-                return true
+                return Array.prototype.every.call(this.elements, (element) => element.classList.contains(className));
             }
-            return this.elements[0].classList.contains(className);
+            return Array.prototype.some.call(this.elements, (element) => element.classList.contains(className));
         }
 
         removeClass(classNames){
-            if(classNames instanceof Array) classNames = classNames.join(" ");
+            if(typeof(classNames) === "string") classNames = classNames.trim().split(" ");
             this.elements.forEach((element) => {
-                element.classList.remove(classNames.trim());
+                classNames.forEach((className) => {
+                    element.classList.remove(className.trim());
+                });
             });
             return this;
         }
 
         toggleClass(classNames){
-            if(classNames instanceof Array) classNames = classNames.join(" ");
-            classNames = classNames.split(' ');
+            if(typeof(classNames) === "string") classNames = classNames.trim().split(" ");
             this.elements.forEach((element) => {
                 classNames.forEach((className) => {
+                    className = className.trim();
                     if(element.classList.contains(className)) element.classList.remove(className);
                     else element.classList.add(className);
                 });
@@ -82,6 +83,14 @@ function _(selector, context = document) {
         add(template){
             this.elements.forEach((element) => {
                 createElements(template, element);
+            });
+            return this;
+        }
+
+        // Events methods
+        event(type, callback) {
+            this.elements.forEach((element) => {
+                element.addEventListener(type, callback);
             });
             return this;
         }
